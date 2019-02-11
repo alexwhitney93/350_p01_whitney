@@ -122,9 +122,10 @@ int main(int argc, char **argv)
     {      
         fprintf(stderr, "extra arguments: %s\n", argv[optind]);  
     }
-    
+    FILE* f;
     if(inputFileExists == true)
     {
+		f = fopen(inputFile, "r");
 		if(numIntsExists == true)
 		{
 			int* numList = malloc(numInts*sizeof(int));
@@ -132,12 +133,30 @@ int main(int argc, char **argv)
 			{
 				
 			}
+			if(outputFileExists == true)
+			{
+				
+				for(int i = 0; i < numInts; i++)
+				{
+					
+				}
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			int* numList = malloc(1000*sizeof(int));	// 1000 = arbitrary default size
+			while(!feof())
 		}
 	}
-	
-	FILE* f;
-	f = popen("users");
-	
+	else
+	{
+		
+	}
+
 	
 	
 	return 0;
