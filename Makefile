@@ -1,14 +1,14 @@
-SOURCE = pointers.c
+SOURCE = sorter.c
 ITEM = lab04
 
-test : pointers
-	./pointers
+test : sorter
+	./sorter
 	
-pointers : pointers.c
-	gcc -g -Wall -o pointers pointers.c
+sorter : sorter.c
+	gcc -g -Wall -o sorter sorter.c
 	
 clean :
-	-rm pointers $(ITEM)_$(USER).tar.gz
+	-rm sorter $(ITEM)_$(USER).tar.gz
 	
 submit: $(SOURCE)
 	mkdir $(ITEM)_$(USER)
