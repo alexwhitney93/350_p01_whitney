@@ -66,10 +66,15 @@ include instructions after printing a “usage string” in response to “prog1
 
 */
 
+int compare(const void * a, const void * b)
+{
+  return (*(int*)a - *(int*)b);
+}
+
 int main(int argc, char **argv)
 {
 	int opt, numInts, minInt, maxInt;
-	char[] inputFile, outputFile, countFile;
+	char inputFile[], outputFile[], countFile[];
 	bool numIntsExists = false;
 	bool maxIntExists = false;
 	bool minIntExists = false;
@@ -125,31 +130,51 @@ int main(int argc, char **argv)
     FILE* f;
     if(inputFileExists == true)
     {
-		f = fopen(inputFile, "r");
+		//f = fopen(inputFile, "r");
+		if((ipf = fopen(inputFile, "r")) == NULL)
+		{
+			fprintf(stderr, "Input file failed to open\n");
+			return 1;
+		}
 		if(numIntsExists == true)
 		{
 			int* numList = malloc(numInts*sizeof(int));
 			for(int i = 0; i < numInts; i++)
 			{
-				
+				fscanf(ipf, "%d", %numList[i]);
 			}
+			qsort(numList, numInts, sizeof(int), compare) 
 			if(outputFileExists == true)
 			{
-				
+				if((opf = fopen(outputFile, "w")) == NULL)
+				{
+					fprintf(stderr, "Output file failed to open\n");
+					return 1;
+				}
 				for(int i = 0; i < numInts; i++)
 				{
-					
+					fprintf(opf, "%d", numList[i]);
 				}
 			}
 			else
 			{
-				
+				for(int i = 0; i < numInts; i++)
+				{
+					fprintf(stdout, "%d", numList[i]);
+				}
 			}
 		}
 		else
 		{
 			int* numList = malloc(1000*sizeof(int));	// 1000 = arbitrary default size
-			while(!feof())
+			do
+			{
+				
+			}
+			while(!feof(inputFile))
+			{
+				
+			}
 		}
 	}
 	else
