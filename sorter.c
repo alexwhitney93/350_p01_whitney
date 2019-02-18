@@ -123,14 +123,14 @@ int main(int argc, char **argv)
       
     // optind is for the extra arguments 
     // which are not parsed 
-    for(; optind < argc; optind++)
+    /*for(; optind < argc; optind++)
     {      
         fprintf(stderr, "extra arguments: %s\n", argv[optind]);  
-    }
-    FILE* f;
+    }*/
+    FILE* ipf;
     if(inputFileExists == true)
     {
-		//f = fopen(inputFile, "r");
+		//ipff = fopen(inputFile, "r");
 		if((ipf = fopen(inputFile, "r")) == NULL)
 		{
 			fprintf(stderr, "Input file failed to open\n");
@@ -141,11 +141,12 @@ int main(int argc, char **argv)
 			int* numList = malloc(numInts*sizeof(int));
 			for(int i = 0; i < numInts; i++)
 			{
-				fscanf(ipf, "%d", %numList[i]);
+				fscanf(ipf, "%d", numList[i]);
 			}
 			qsort(numList, numInts, sizeof(int), compare) 
 			if(outputFileExists == true)
 			{
+				File* opf;
 				if((opf = fopen(outputFile, "w")) == NULL)
 				{
 					fprintf(stderr, "Output file failed to open\n");
@@ -170,9 +171,9 @@ int main(int argc, char **argv)
 			int size = 1000;							// 1000 = arbitrary default size
 			int* numList = malloc(size*sizeof(int));
 			int i = 0;
-			while(fscanf(ipf, "%d", %numList[i]) == 1 && i < size)
+			while(fscanf(ipf, "%d", numList[i]) == 1 && i < size)
 			{
-				if(i == (size-1)
+				if(i == (size-1))
 				{
 					size = size*2;
 					int* biggerNumList = realloc(numList, size*sizeof(int));
@@ -205,6 +206,7 @@ int main(int argc, char **argv)
 			}
 			if(outputFileExists == true)
 			{
+				File* opf;
 				if((opf = fopen(outputFile, "w")) == NULL)
 				{
 					fprintf(stderr, "Output file failed to open\n");
@@ -219,8 +221,7 @@ int main(int argc, char **argv)
 			{
 				for(int i = 0; i < numInts; i++)
 				{
-					fprintf(stdout,
-					"%d", numList[i]);
+					fprintf(stdout,"%d", numList[i]);
 				}
 			}
 			free(numList);
