@@ -163,18 +163,67 @@ int main(int argc, char **argv)
 					fprintf(stdout, "%d", numList[i]);
 				}
 			}
+			free(numList);
 		}
 		else
 		{
-			int* numList = malloc(1000*sizeof(int));	// 1000 = arbitrary default size
-			do
+			int size = 1000;							// 1000 = arbitrary default size
+			int* numList = malloc(size*sizeof(int));
+			int i = 0;
+			while(fscanf(ipf, "%d", %numList[i]) == 1 && i < size)
 			{
-				
+				if(i == (size-1)
+				{
+					size = size*2;
+					int* biggerNumList = realloc(numList, size*sizeof(int));
+					numList = biggerNumList;
+				}
+				i++;
 			}
-			while(!feof(inputFile))
+			if(feof(ipf))
 			{
-				
+				qsort(numList, numInts, sizeof(int), compare);
+				if(outputFileExists == true)
+				{
+					if((opf = fopen(outputFile, "w")) == NULL)
+					{
+						fprintf(stderr, "Output file failed to open\n");
+						return 1;
+					}
+					for(int i = 0; i < (int) sizeof(numList); i++)
+					{
+						fprintf(opf, "%d", numList[i]);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < (int) sizeof(numList); i++)
+					{
+						fprintf(stdout, "%d", numList[i]);
+					}
+				}
 			}
+			if(outputFileExists == true)
+			{
+				if((opf = fopen(outputFile, "w")) == NULL)
+				{
+					fprintf(stderr, "Output file failed to open\n");
+					return 1;
+				}
+				for(int i = 0; i < numInts; i++)
+				{
+					fprintf(opf, "%d", numList[i]);
+				}
+			}
+			else
+			{
+				for(int i = 0; i < numInts; i++)
+				{
+					fprintf(stdout,
+					"%d", numList[i]);
+				}
+			}
+			free(numList);
 		}
 	}
 	else
