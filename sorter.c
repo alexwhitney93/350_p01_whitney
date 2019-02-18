@@ -74,7 +74,7 @@ int compare(const void * a, const void * b)
 int main(int argc, char **argv)
 {
 	int opt, numInts, minInt, maxInt;
-	char inputFile[], outputFile[], countFile[];
+	char* inputFile[], outputFile[], countFile[];
 	bool numIntsExists = false;
 	bool maxIntExists = false;
 	bool minIntExists = false;
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
         {
 			case 'u':
 				fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
-				system.exit(0);
+				exit(0);
 			case 'n':
 				numInts = optarg;
 				numIntsExists = true;
@@ -114,10 +114,10 @@ int main(int argc, char **argv)
 				break; 
             case ':':  
                 fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
-                system.exit(0);
+                exit(0);
             case '?':  
                 fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
-                system.exit(0); 
+                exit(0); 
         }  
     }  
       
@@ -143,10 +143,10 @@ int main(int argc, char **argv)
 			{
 				fscanf(ipf, "%d", numList[i]);
 			}
-			qsort(numList, numInts, sizeof(int), compare) 
+			qsort(numList, numInts, sizeof(int), compare);
 			if(outputFileExists == true)
 			{
-				File* opf;
+				FILE* opf;
 				if((opf = fopen(outputFile, "w")) == NULL)
 				{
 					fprintf(stderr, "Output file failed to open\n");
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
 			}
 			if(outputFileExists == true)
 			{
-				File* opf;
+				FILE* opf;
 				if((opf = fopen(outputFile, "w")) == NULL)
 				{
 					fprintf(stderr, "Output file failed to open\n");
