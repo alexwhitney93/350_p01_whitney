@@ -71,6 +71,33 @@ int compare(const void * a, const void * b)
   return (*(int*)a - *(int*)b);
 }
 
+void outputToFile(char* output, int size, int[] nums)
+{
+	FILE* opf;
+	if((opf = fopen(outputFile, "w")) == NULL)
+	{
+		fprintf(stderr, "Output file failed to open\n");
+		return 1;
+	}
+	for(int i = 0; i < size; i++)
+	{
+		fprintf(opf, "%d", nums[i]);
+	}
+}
+
+void outputToTerminal(int size, int[] nums)
+{
+	for(int i = 0; i < size; i++)
+	{
+		fprintf(stdout, "%d", nums[i]);
+	}
+}
+
+void outputUserID(int size, int[] nums)
+{
+	
+}
+
 int main(int argc, char **argv)
 {
 	int opt, numInts, minInt, maxInt;
@@ -90,14 +117,34 @@ int main(int argc, char **argv)
 				exit(0);
 			case 'n':
 				numInts = optarg;
+				if(numInts < 0)
+				{
+					fprintf(stderr, "number of integers cannot be negative");
+					exit(0);
+				}
 				numIntsExists = true;
 				break;
 			case 'm':
 				minInt = optarg;
+				if(minInt < 1)
+				{
+					fprintf(stderr, "min-int must be greater than or equal to 1");
+					exit(0);
+				}
 				minIntExists = true;
 				break;
 			case 'M':
 				maxInt = optarg;
+				if(maxInt > 1000000)
+				{
+					fprintf(stderr, "max-int must be less than or equal to 1000000");
+					exit(0);
+				}
+				if(minIntExists && maxInt < minInt)
+				{
+					fprintf(stderr, "max-int must not be less than min-int");
+					exit(0);
+				}
 				maxIntExists = true;
 				break;
 			case 'i':
@@ -119,121 +166,91 @@ int main(int argc, char **argv)
                 fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
                 exit(0); 
         }  
-    }  
-      
+    }
+	
     // optind is for the extra arguments 
     // which are not parsed 
     /*for(; optind < argc; optind++)
     {      
         fprintf(stderr, "extra arguments: %s\n", argv[optind]);  
     }*/
-    FILE* ipf;
-    if(inputFileExists == true)
+	
+	if(!numIntsExists)
+	{
+		numInts = 100;
+	}
+	if(!minIntExists)
+	{
+		minInt = 1;
+	}
+	if(!maxIntExists)
+	{
+		maxInt = 255;
+	}
+    
+    if(inputFileExists == true)							//input file given
     {
-		//ipff = fopen(inputFile, "r");
+		FILE* ipf;
+		//ipf = fopen(inputFile, "r");
 		if((ipf = fopen(inputFile, "r")) == NULL)
 		{
 			fprintf(stderr, "Input file failed to open\n");
 			return 1;
 		}
-		if(numIntsExists == true)
+		int* numList = malloc(numInts*sizeof(int));
+		for(int i = 0; i < numInts; i++)
 		{
-			int* numList = malloc(numInts*sizeof(int));
-			for(int i = 0; i < numInts; i++)
+			fscanf(ipf, "%d", numList[i]);
+			if(numList[i] > maxInt)
 			{
-				fscanf(ipf, "%d", numList[i]);
+				fprintf(stderr, "input contains an integer greater than max-int");
+				exit(0);
 			}
-			qsort(numList, numInts, sizeof(int), compare);
-			if(outputFileExists == true)
+			if(numList[i] < minInt)
 			{
-				FILE* opf;
-				if((opf = fopen(outputFile, "w")) == NULL)
-				{
-					fprintf(stderr, "Output file failed to open\n");
-					return 1;
-				}
-				for(int i = 0; i < numInts; i++)
-				{
-					fprintf(opf, "%d", numList[i]);
-				}
+				fprintf(stderr, "intput contains an integer less than min-int");
+				exit(0);
 			}
-			else
-			{
-				for(int i = 0; i < numInts; i++)
-				{
-					fprintf(stdout, "%d", numList[i]);
-				}
-			}
-			free(numList);
 		}
-		else
+		qsort(numList, numInts, sizeof(int), compare);
+		if(outputFileExists == true)				// output file given
 		{
-			int size = 1000;							// 1000 = arbitrary default size
-			int* numList = malloc(size*sizeof(int));
-			int i = 0;
-			while(fscanf(ipf, "%d", numList[i]) == 1 && i < size)
-			{
-				if(i == (size-1))
-				{
-					size = size*2;
-					int* biggerNumList = realloc(numList, size*sizeof(int));
-					numList = biggerNumList;
-				}
-				i++;
-			}
-			if(feof(ipf))
-			{
-				qsort(numList, numInts, sizeof(int), compare);
-				if(outputFileExists == true)
-				{
-					if((opf = fopen(outputFile, "w")) == NULL)
-					{
-						fprintf(stderr, "Output file failed to open\n");
-						return 1;
-					}
-					for(int i = 0; i < (int) sizeof(numList); i++)
-					{
-						fprintf(opf, "%d", numList[i]);
-					}
-				}
-				else
-				{
-					for(int i = 0; i < (int) sizeof(numList); i++)
-					{
-						fprintf(stdout, "%d", numList[i]);
-					}
-				}
-			}
-			if(outputFileExists == true)
-			{
-				FILE* opf;
-				if((opf = fopen(outputFile, "w")) == NULL)
-				{
-					fprintf(stderr, "Output file failed to open\n");
-					return 1;
-				}
-				for(int i = 0; i < numInts; i++)
-				{
-					fprintf(opf, "%d", numList[i]);
-				}
-			}
-			else
-			{
-				for(int i = 0; i < numInts; i++)
-				{
-					fprintf(stdout,"%d", numList[i]);
-				}
-			}
-			free(numList);
+			outputToFile(outputFile, numInts, numList);
 		}
+		else										// no output file given
+		{
+			outputToTerminal(numInts, numList);
+		}
+		free(numList);
 	}
-	else
+	else												// no input file given
 	{
-		
+		int* numList = malloc(numInts*sizeof(int));
+		for(int i = 0; i < numInts; i++)
+		{
+			scanf("%d", numList[i]);
+			if(numList[i] > maxInt)
+			{
+				fprintf(stderr, "input contains an integer greater than max-int");
+				exit(0);
+			}
+			if(numList[i] < minInt)
+			{
+				fprintf(stderr, "intput contains an integer less than min-int");
+				exit(0);
+			}
+		}
+		qsort(numList, numInts, sizeof(int), compare);
+		if(outputFileExists == true)				// output file given
+		{
+			outputToFile(outputFile, numInts, numList);
+		}
+		else										// no output file given
+		{
+			outputToTerminal(numInts, numList);
+		}
+		free(numList);
 	}
-
-	
-	
 	return 0;
 }
 
