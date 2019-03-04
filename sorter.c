@@ -268,7 +268,7 @@ int main(int argc, char **argv)
 			}
 			if(numList[i] < minInt)
 			{
-				fprintf(stderr, "intput contains an integer less than min-int");
+				fprintf(stderr, "input contains an integer less than min-int");
 				exit(0);
 			}
 		}
@@ -304,7 +304,7 @@ int main(int argc, char **argv)
 			}
 			if(numList[i] < minInt)
 			{
-				fprintf(stderr, "intput contains an integer less than min-int");
+				fprintf(stderr, "input contains an integer less than min-int");
 				exit(0);
 			}
 		}
