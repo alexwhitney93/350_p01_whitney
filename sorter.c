@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <time.h>
 
 /*
 
@@ -177,7 +178,7 @@ int main(int argc, char **argv)
 				exit(0);
 			case 'n':
 				numInts = atoi(optarg);
-				fprintf(stdout, "numInts = %d", numInts);
+				//fprintf(stdout, "numInts = %d", numInts);
 				if(numInts < 0)
 				{
 					fprintf(stderr, "number of integers cannot be negative");
@@ -236,6 +237,10 @@ int main(int argc, char **argv)
         fprintf(stderr, "extra arguments: %s\n", argv[optind]);  
     }*/
 	
+	// take timestamp
+	clock_t t;
+	t = clock();
+	
 	if(!numIntsExists)
 	{
 		numInts = 100;
@@ -248,7 +253,8 @@ int main(int argc, char **argv)
 	{
 		maxInt = 255;
 	}
-    
+	
+    // read input, sort, and write output
     if(inputFileExists == true)							//input file given
     {
 		FILE* ipf;
@@ -328,6 +334,9 @@ int main(int argc, char **argv)
 		}
 		free(numList);
 	}
+	t = clock() - t;
+	double time_taken = ((double)t)/CLOCKS_PER_SEC;
+	fprintf(stderr, "%f\n", time_taken);
 	return 0;
 }
 
