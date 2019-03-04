@@ -238,8 +238,8 @@ int main(int argc, char **argv)
     }*/
 	
 	// take timestamp
-	clock_t t;
-	t = clock();
+	clock_t begin;
+	begin = clock();
 	
 	if(!numIntsExists)
 	{
@@ -334,8 +334,9 @@ int main(int argc, char **argv)
 		}
 		free(numList);
 	}
-	t = clock() - t;
-	double time_taken = ((double)t)/CLOCKS_PER_SEC;
+	clock_t end;
+	end = clock();
+	double time_taken = ((double)end - begin)/CLOCKS_PER_SEC;
 	fprintf(stderr, "%f\n", time_taken);
 	return 0;
 }
