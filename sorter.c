@@ -102,7 +102,7 @@ void outputUserID(int size, int nums[])
 int main(int argc, char **argv)
 {
 	int opt, numInts, minInt, maxInt;
-	char* inputFile, outputFile, countFile = NULL;
+	const char* inputFile, outputFile, countFile = NULL;
 	bool numIntsExists = false;
 	bool maxIntExists = false;
 	bool minIntExists = false;
