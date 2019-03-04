@@ -177,7 +177,7 @@ int main(int argc, char **argv)
 				exit(0);
 			case 'n':
 				numInts = atoi(optarg);
-				fprintf(stdout, "numInts = " + "%d", numInts);
+				fprintf(stdout, "numInts = %d", numInts);
 				if(numInts < 0)
 				{
 					fprintf(stderr, "number of integers cannot be negative");
