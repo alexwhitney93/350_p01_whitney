@@ -82,7 +82,7 @@ void outputToFile(char* output, int size, int nums[])
 	}
 	for(int i = 0; i < size; i++)
 	{
-		fprintf(opf, "%d", nums[i]);
+		fprintf(opf, "%d\n", nums[i]);
 	}
 };
 
@@ -90,7 +90,7 @@ void outputToTerminal(int size, int nums[])
 {
 	for(int i = 0; i < size; i++)
 	{
-		fprintf(stdout, "%d", nums[i]);
+		fprintf(stdout, "%d\n", nums[i]);
 	}
 };
 
