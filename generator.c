@@ -101,7 +101,7 @@ your program.
 
 int main(int argc, char **argv)
 {
-	char *p=getenv("USER");
+	char p[] = getenv("USER");
     if(p==NULL) return EXIT_FAILURE;
     printf("%s\n",p);
     return 0;
