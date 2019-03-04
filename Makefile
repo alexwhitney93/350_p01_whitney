@@ -1,14 +1,14 @@
-SOURCE = generator.c
+SOURCE = sorter.c
 ITEM = lab04
 
-test : generator
-	./generator
+test : sorter
+	./sorter
 	
-generator : generator.c
-	gcc -g -Wall -o generator generator.c
+sorter : sorter.c
+	gcc -g -Wall -o sorter sorter.c
 	
 clean :
-	-rm generator $(ITEM)_$(USER).tar.gz
+	-rm sorter $(ITEM)_$(USER).tar.gz
 	
 submit: $(SOURCE)
 	mkdir $(ITEM)_$(USER)
