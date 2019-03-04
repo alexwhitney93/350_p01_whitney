@@ -69,7 +69,7 @@ include instructions after printing a “usage string” in response to “prog1
 int compare(const void * a, const void * b)
 {
   return (*(int*)a - *(int*)b);
-}
+};
 
 void outputToFile(char* output, int size, int[] nums)
 {
@@ -83,7 +83,7 @@ void outputToFile(char* output, int size, int[] nums)
 	{
 		fprintf(opf, "%d", nums[i]);
 	}
-}
+};
 
 void outputToTerminal(int size, int[] nums)
 {
@@ -91,12 +91,12 @@ void outputToTerminal(int size, int[] nums)
 	{
 		fprintf(stdout, "%d", nums[i]);
 	}
-}
+};
 
 void outputUserID(int size, int[] nums)
 {
 	
-}
+};
 
 int main(int argc, char **argv)
 {
