@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 /*
 
@@ -200,7 +201,7 @@ int main(int argc, char **argv)
 		int* numList = malloc(numInts*sizeof(int));
 		for(int i = 0; i < numInts; i++)
 		{
-			fscanf(ipf, "%d", numList[i]);
+			fscanf(ipf, "%d", &numList[i]);
 			if(numList[i] > maxInt)
 			{
 				fprintf(stderr, "input contains an integer greater than max-int");
@@ -228,7 +229,7 @@ int main(int argc, char **argv)
 		int* numList = malloc(numInts*sizeof(int));
 		for(int i = 0; i < numInts; i++)
 		{
-			scanf("%d", numList[i]);
+			scanf("%d", &numList[i]);
 			if(numList[i] > maxInt)
 			{
 				fprintf(stderr, "input contains an integer greater than max-int");
