@@ -75,10 +75,10 @@ int compare(const void * a, const void * b)
 void outputToFile(char* output, int size, int nums[])
 {
 	FILE* opf;
-	if((opf = fopen(outputFile, "w")) == NULL)
+	if((opf = fopen(output, "w")) == NULL)
 	{
 		fprintf(stderr, "Output file failed to open\n");
-		return 1;
+		//return 1;
 	}
 	for(int i = 0; i < size; i++)
 	{
@@ -214,14 +214,14 @@ int main(int argc, char **argv)
 				exit(0);
 			}
 		}
-		qsort(numList, numInts, sizeof(int), compare);
+		qsort(numList, &numInts, sizeof(int), compare);
 		if(outputFileExists == true)				// output file given
 		{
-			outputToFile(outputFile, numInts, numList);
+			outputToFile(outputFile, &numInts, numList);
 		}
 		else										// no output file given
 		{
-			outputToTerminal(numInts, numList);
+			outputToTerminal(&numInts, numList);
 		}
 		free(numList);
 	}
@@ -242,14 +242,14 @@ int main(int argc, char **argv)
 				exit(0);
 			}
 		}
-		qsort(numList, numInts, sizeof(int), compare);
+		qsort(numList, &numInts, sizeof(int), compare);
 		if(outputFileExists == true)				// output file given
 		{
-			outputToFile(outputFile, numInts, numList);
+			outputToFile(outputFile, &numInts, numList);
 		}
 		else										// no output file given
 		{
-			outputToTerminal(numInts, numList);
+			outputToTerminal(&numInts, numList);
 		}
 		free(numList);
 	}
