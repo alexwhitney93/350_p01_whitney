@@ -1,14 +1,14 @@
-SOURCE = sorter.c
+SOURCE = prog1sorter.c
 ITEM = 350_p01_whitney
 
-test : sorter
-	./sorter
+test : prog1sorter
+	./prog1sorter
 	
-sorter : sorter.c
-	gcc -g -Wall -o sorter sorter.c
+prog1sorter : prog1sorter.c
+	gcc -g -Wall -o prog1sorter prog1sorter.c
 	
 clean :
-	-rm sorter $(ITEM)_$(USER).tar.gz
+	-rm prog1sorter $(ITEM)_$(USER).tar.gz
 	
 submit: $(SOURCE)
 	mkdir $(ITEM)_$(USER)

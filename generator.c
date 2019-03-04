@@ -101,12 +101,66 @@ your program.
 
 int main(int argc, char **argv)
 {
-	char *p=getenv("USER");
-    if(p==NULL) return EXIT_FAILURE;
-    printf("%s\n",p);
-	for(int i = 0; p[i] != '\0'; i++)
-	{
-		printf("%c\n", p[i]);
-	}
-    return 0;
+int opt, numInts, minInt, maxInt;
+	char* outputFile = NULL;
+	unsigned long seed;
+	bool numIntsExists = false;
+	bool maxIntExists = false;
+	bool minIntExists = false;
+	bool outputFileExists = false;
+	while((opt = getopt(argc, argv, "un:m:M:s:o:")) != -1)  
+    {  
+        switch(opt)  
+        {
+			case 'u':
+				fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
+				exit(0);
+			case 'n':
+				numInts = atoi(optarg);
+				//fprintf(stdout, "numInts = %d", numInts);
+				if(numInts < 0)
+				{
+					fprintf(stderr, "number of integers cannot be negative");
+					exit(0);
+				}
+				numIntsExists = true;
+				break;
+			case 'm':
+				minInt = atoi(optarg);
+				if(minInt < 1)
+				{
+					fprintf(stderr, "min-int must be greater than or equal to 1");
+					exit(0);
+				}
+				minIntExists = true;
+				break;
+			case 'M':
+				maxInt = atoi(optarg);
+				if(maxInt > 1000000)
+				{
+					fprintf(stderr, "max-int must be less than or equal to 1000000");
+					exit(0);
+				}
+				if(minIntExists && maxInt < minInt)
+				{
+					fprintf(stderr, "max-int must not be less than min-int");
+					exit(0);
+				}
+				maxIntExists = true;
+				break;
+			case 's':
+				seed = atoi(optarg);
+				break;
+			case 'o':
+				outputFile = optarg;
+				outputFileExists = true;
+				break; 
+            case ':':  
+                fprintf(stderr, "prog1generator [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-s <seed>] [-o <output-file-name>]");
+                exit(0);
+            case '?':  
+                fprintf(stderr, "prog1generator [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-s <seed>] [-o <output-file-name>]");
+                exit(0);
+        }  
+    }
 }
