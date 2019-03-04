@@ -97,7 +97,12 @@ void outputToTerminal(int size, int nums[])
 void outputUserIDToFile(char* output, int size, int nums[])
 {
 	char *p=getenv("USER");
-    if(p==NULL) return EXIT_FAILURE;
+    if(p==NULL)
+	{
+		fprintf(stderr, "Could not get user ID");
+		exit(0);
+	}
+	FILE* opf
 	if((opf = fopen(output, "w")) == NULL)
 	{
 		fprintf(stderr, "Output file failed to open\n");
@@ -125,7 +130,11 @@ void outputUserIDToFile(char* output, int size, int nums[])
 void outputUserIDToTerminal(int size, int nums[])
 {
 	char *p=getenv("USER");
-    if(p==NULL) return EXIT_FAILURE;
+    if(p==NULL)
+	{
+		fprintf(stderr, "Could not get user ID");
+		exit(0);
+	}
     //printf("%s\n",p);
 	for(int i = 0; p[i] != '\0'; i++)
 	{
@@ -145,7 +154,6 @@ void outputUserIDToTerminal(int size, int nums[])
 		}
 		printf("%d\n", count);
 	}
-    return 0;
 };
 
 int main(int argc, char **argv)
@@ -216,7 +224,7 @@ int main(int argc, char **argv)
                 exit(0);
             case '?':  
                 fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
-                exit(0); 
+                exit(0);
         }  
     }
 	
