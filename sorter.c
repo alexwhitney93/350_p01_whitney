@@ -71,7 +71,7 @@ int compare(const void * a, const void * b)
   return (*(int*)a - *(int*)b);
 };
 
-void outputToFile(char* output, int size, int[] nums)
+void outputToFile(char* output, int size, int nums[])
 {
 	FILE* opf;
 	if((opf = fopen(outputFile, "w")) == NULL)
@@ -85,7 +85,7 @@ void outputToFile(char* output, int size, int[] nums)
 	}
 };
 
-void outputToTerminal(int size, int[] nums)
+void outputToTerminal(int size, int nums[])
 {
 	for(int i = 0; i < size; i++)
 	{
@@ -93,7 +93,7 @@ void outputToTerminal(int size, int[] nums)
 	}
 };
 
-void outputUserID(int size, int[] nums)
+void outputUserID(int size, int nums[])
 {
 	
 };
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 	bool inputFileExists = false;
 	bool outputFileExists = false;
 	bool countFileExists = false;
-	while((opt = getopt(argc, argv, ":if:lrx")) != -1)  
+	while((opt = getopt(argc, argv, "unmMioc:")) != -1)  
     {  
         switch(opt)  
         {
