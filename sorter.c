@@ -94,9 +94,58 @@ void outputToTerminal(int size, int nums[])
 	}
 };
 
-void outputUserID(int size, int nums[])
+void outputUserIDToFile(char* output, int size, int nums[])
 {
-	
+	char *p=getenv("USER");
+    if(p==NULL) return EXIT_FAILURE;
+	if((opf = fopen(output, "w")) == NULL)
+	{
+		fprintf(stderr, "Output file failed to open\n");
+	}
+	for(int i = 0; p[i] != '\0'; i++)
+	{
+		fprintf(opf, "%c\t", p[i]);
+		fprintf(opf, "%d\t", p[i]);
+		int count = 0;
+		for(int j = 0; j < size; j++)
+		{
+			if(nums[j] == (int)p[i])
+			{
+				count++;
+			}
+			if(nums[j] > (int)p[i])
+			{
+				break;
+			}
+		}
+		fprintf(opf, "%d\n", count);
+	}
+}
+
+void outputUserIDToTerminal(int size, int nums[])
+{
+	char *p=getenv("USER");
+    if(p==NULL) return EXIT_FAILURE;
+    //printf("%s\n",p);
+	for(int i = 0; p[i] != '\0'; i++)
+	{
+		printf("%c\t", p[i]);
+		printf("%d\t", p[i]);
+		int count = 0;
+		for(int j = 0; j < size; j++)
+		{
+			if(nums[j] == (int)p[i])
+			{
+				count++;
+			}
+			if(nums[j] > (int)p[i])
+			{
+				break;
+			}
+		}
+		printf("%d\n", count);
+	}
+    return 0;
 };
 
 int main(int argc, char **argv)
@@ -224,6 +273,14 @@ int main(int argc, char **argv)
 		{
 			outputToTerminal(numInts, numList);
 		}
+		if(countFileExists == true)
+		{
+			outputUserIDToFile(countFile, numInts, numList);
+		}
+		else
+		{
+			outputUserIDToTerminal(numInts, numList);
+		}
 		free(numList);
 	}
 	else												// no input file given
@@ -251,6 +308,14 @@ int main(int argc, char **argv)
 		else										// no output file given
 		{
 			outputToTerminal(numInts, numList);
+		}
+		if(countFileExists == true)
+		{
+			outputUserIDToFile(countFile, numInts, numList);
+		}
+		else
+		{
+			outputUserIDToTerminal(numInts, numList);
 		}
 		free(numList);
 	}
