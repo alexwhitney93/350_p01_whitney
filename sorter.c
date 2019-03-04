@@ -168,7 +168,7 @@ int main(int argc, char **argv)
 	bool inputFileExists = false;
 	bool outputFileExists = false;
 	bool countFileExists = false;
-	while((opt = getopt(argc, argv, "unmMioc:")) != -1)  
+	while((opt = getopt(argc, argv, "un:m:M:i:o:c:")) != -1)  
     {  
         switch(opt)  
         {
