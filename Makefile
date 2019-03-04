@@ -1,5 +1,5 @@
 SOURCE = sorter.c
-ITEM = lab04
+ITEM = 350_p01_whitney
 
 test : sorter
 	./sorter
