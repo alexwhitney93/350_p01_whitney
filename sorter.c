@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 {
 	int opt;
 	int* numInts, minInt, maxInt;
-	char* inputFile[], outputFile[], countFile[];
+	char* inputFile, outputFile, countFile;
 	bool numIntsExists = false;
 	bool maxIntExists = false;
 	bool minIntExists = false;
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 				fprintf(stderr, "prog1sorter [-u] [-n <num-integers> [-m <min-int> [-M <max-int>] [-i <input-file-name>] [-o <output-file-name>] [-c <count-file-name>]");
 				exit(0);
 			case 'n':
-				numInts = optarg;
+				numInts = atoi(optarg);
 				if(numInts < 0)
 				{
 					fprintf(stderr, "number of integers cannot be negative");
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
 				numIntsExists = true;
 				break;
 			case 'm':
-				minInt = optarg;
+				minInt = atoi(optarg);
 				if(minInt < 1)
 				{
 					fprintf(stderr, "min-int must be greater than or equal to 1");
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
 				minIntExists = true;
 				break;
 			case 'M':
-				maxInt = optarg;
+				maxInt = atoi(optarg);
 				if(maxInt > 1000000)
 				{
 					fprintf(stderr, "max-int must be less than or equal to 1000000");
