@@ -102,7 +102,7 @@ void outputUserIDToFile(char* output, int size, int nums[])
 		fprintf(stderr, "Could not get user ID");
 		exit(0);
 	}
-	FILE* opf
+	FILE* opf;
 	if((opf = fopen(output, "w")) == NULL)
 	{
 		fprintf(stderr, "Output file failed to open\n");
