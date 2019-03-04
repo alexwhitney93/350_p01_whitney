@@ -101,8 +101,12 @@ your program.
 
 int main(int argc, char **argv)
 {
-	char p[] = getenv("USER");
+	char *p=getenv("USER");
     if(p==NULL) return EXIT_FAILURE;
     printf("%s\n",p);
+	for(int i = 0; p[i] != '\0'; i++)
+	{
+		printf("%c\n", p[i]);
+	}
     return 0;
 }
